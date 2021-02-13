@@ -10,10 +10,13 @@ router.post('/register', async (req, res) => {
     try {
         const response = await axios.post(`${process.env.USER_SERVICE_API}/register`, req.body);
 
-        res.send(response.data);
+        return res.send(response.data);
 
     } catch (e) {
-        res.status(StatusCodes.BAD_REQUEST).send(e.response.data)
+        if(e.response && e.response.data)
+            return res.status(StatusCodes.BAD_REQUEST).send(e.response.data)
+
+        return res.status(StatusCodes.BAD_REQUEST).send({success: false, msg:'Service temporary  unavailable, please try later'})
     }
 });
 
@@ -42,7 +45,10 @@ router.post('/auth', async (req, res) => {
         return res.json({ name, email, role, token })
 
     } catch (e) {
-        res.status(e.response.status).send(e.response.data)
+        if(e.response && e.response.data)
+            return res.status(StatusCodes.BAD_REQUEST).send(e.response.data)
+
+        return res.status(StatusCodes.BAD_REQUEST).send({success: false, msg:'Service temporary  unavailable, please try later'})
     }
 });
 

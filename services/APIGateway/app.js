@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-
+const fileUpload = require('express-fileupload')
 const authRouter = require('./routes/authRouter')
 const productsRouter = require('./routes/productsRouter')
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(fileUpload())
 
 const API = '/api/v1/';
 app.all('*', [ require('./guards/tokenGuard') ])

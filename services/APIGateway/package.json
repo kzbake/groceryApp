@@ -2,6 +2,9 @@
   "name": "authenticationservice",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "scripts": {
     "start": "env-cmd nodemon ./bin/www"
   },
@@ -11,6 +14,7 @@
     "debug": "~2.6.9",
     "env-cmd": "^10.1.0",
     "express": "~4.16.1",
+    "express-fileupload": "^1.2.1",
     "http-errors": "~1.6.3",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
