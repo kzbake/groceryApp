@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
         if(e.response && e.response.data)
             return res.status(StatusCodes.BAD_REQUEST).send(e.response.data)
 
-        return res.status(StatusCodes.BAD_REQUEST).send({success: false, msg:'Service temporary  unavailable, please try later'})
+        return res.status(StatusCodes.BAD_REQUEST).send({success: false, msg: 'Service temporary  unavailable, please try later'})
     }
 });
 
@@ -42,7 +42,7 @@ router.post('/auth', async (req, res) => {
 
         const token = jwt.sign({ _id, email, role }, process.env.SECRET, {expiresIn: process.env.EXPIRE_TIME})
 
-        return res.json({ name, email, role, token })
+        return res.json({ success: true,  name, email, role, token })
 
     } catch (e) {
         if(e.response && e.response.data)

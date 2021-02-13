@@ -1,8 +1,8 @@
 {
-  "name":"Apple juice",
-  "barcode": 23423423,
+  "name":"Mango juice",
+  "barcode": 33342342,
   "brand": "Almarai",
-  "description": "Almarai apple juice(2l)",
+  "description": "Almarai mango juice(2l)",
   "price": 8,
   "available": true
 }

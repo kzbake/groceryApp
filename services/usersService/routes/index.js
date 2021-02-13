@@ -50,7 +50,7 @@ router.post('/register', async(req, res) => {
         });
         await newUser.save();
 
-        return res.status(StatusCodes.OK).json('Successfully registered');
+        return res.status(StatusCodes.OK).json({success: true, msg:'Successfully registered'});
 
     } catch (e) {
         console.log('Error:', e);
@@ -63,13 +63,13 @@ router.post('/getUser', async(req, res) => {
     const {email} = req.body;
 
     if (!email)
-        return res.status(StatusCodes.BAD_REQUEST).json('Email is required');
+        return res.status(StatusCodes.BAD_REQUEST).json({success: false, msg: 'Email is required'});
 
 
     const account = await UsersModel.findOne({email: email}).exec();
 
     if(!account)
-        return res.status(StatusCodes.NOT_FOUND).json('User account not found');
+        return res.status(StatusCodes.NOT_FOUND).json({success: false, msg:'User account not found'});
 
     return res.status(StatusCodes.OK).json(account);
 

@@ -1,16 +1,19 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const fileUpload = require('express-fileupload')
-const authRouter = require('./routes/authRouter')
-const productsRouter = require('./routes/productsRouter')
+const fileUpload = require('express-fileupload');
+const authRouter = require('./routes/authRouter');
+const productsRouter = require('./routes/productsRouter');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload())
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const API = '/api/v1/';
 app.all('*', [ require('./guards/tokenGuard') ])
 app.use(API, authRouter);

@@ -1,0 +1,359 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger for Grocery API",
+    "version": "1.0.0",
+    "title": "Grocery API",
+    "contact": {
+      "email": "kz.baurzhan@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": ["http"],
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "paths" : {
+    "/register" : {
+      "post" : {
+        "summary" : "Register new user",
+        "description": "Register new user",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/registerResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth" : {
+      "post" : {
+        "summary" : "Authenticate the user",
+        "description": "Authenticate the user",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/registerResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/products" : {
+      "post" : {
+        "summary" : "Add new product",
+        "description": "requires admin role",
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "product",
+            "type": "file",
+            "description": "file to upload",
+            "required": true
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "description": "an authorization header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/registerResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/products/review" : {
+      "post" : {
+        "summary" : "Add review for the product",
+        "description": "requires client role",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/review"
+            }
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "description": "an authorization header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/registerResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/products/search" : {
+      "post" : {
+        "summary" : "Add review for the product",
+        "description": "requires client role",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/search"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page number",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "description": "an authorization header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/searchResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "register": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string"
+        },
+        "review": {
+          "type": "string"
+        }
+      }
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "searchText": {
+          "type": "string"
+        }
+      }
+    },
+    "registerResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "searchResponse": {
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "type": "number"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "available": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "barcode": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "price": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "reviews": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "productId": {
+                    "type": "string"
+                  },
+                  "review": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "InvalidResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "default": false
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+
+    }
+  }
+}
