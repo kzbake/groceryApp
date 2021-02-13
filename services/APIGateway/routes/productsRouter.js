@@ -46,10 +46,15 @@ router.post('/review', async (req, res) => {
 router.post('/search', async (req, res) => {
 
     try {
-        res.json('search api');
+        const { page } = req.query;
+        const response = await axios.post(`${process.env.PRODUCT_SERVICE_API}/search`, {page, ...req.body});
 
+        return res.send(response.data);
     } catch (e) {
-        res.status(StatusCodes.BAD_REQUEST).send(e)
+        if(e.response && e.response.data)
+            return res.status(StatusCodes.BAD_REQUEST).send(e.response.data)
+
+        return res.status(StatusCodes.BAD_REQUEST).send({success:false, msg: 'Service temporary  unavailable, please try later'})
     }
 });
 

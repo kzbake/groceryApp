@@ -1,8 +1,8 @@
 {
-  "name":"Priya Rice Bag (20 kg)",
-  "barcode": 34898998,
-  "brand": "Priya",
-  "description": "Priya Rice Bag (20 kg)",
-  "price": 200,
+  "name":"Apple juice",
+  "barcode": 23423423,
+  "brand": "Almarai",
+  "description": "Almarai apple juice(2l)",
+  "price": 8,
   "available": true
 }

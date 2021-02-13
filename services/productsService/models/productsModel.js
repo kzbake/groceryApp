@@ -31,6 +31,6 @@ const ProductsSchema = new Schema({
         required: true,
         default: true
     },
-    timestamp: {type: Date, default: Date.now}
+    createdAt: {type: Date, default: Date.now}
 })
 db.model('Products', ProductsSchema);
