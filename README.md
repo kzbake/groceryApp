@@ -13,7 +13,7 @@ Project structure
 
 Run command:
 
-_`cd services/APIGateway`_ then  `npm i`
+`cd services/APIGateway` then  `npm i`
 
 to start service: `npm start`
 
